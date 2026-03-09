@@ -1,0 +1,2661 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Game title fonts */
+@font-face {
+  font-family: 'TF2';
+  src: url('/fonts/tf2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TF2 Build';
+  src: url('/fonts/tf2build.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Compacta';
+  src: url('/fonts/compacta.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/coolvetica.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Headhumper';
+  src: url('/fonts/headhumper.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  /* Light theme base styles */
+  [data-mode="light"] {
+    color-scheme: light;
+  }
+  
+  [data-mode="light"] body {
+    background-color: #fafafa;
+    @apply text-gray-900;
+  }
+  
+  /* Override Medusa UI colors for light theme */
+  [data-mode="light"] {
+    --ui-bg-base: #fafafa;
+    --ui-bg-subtle: #f7f7f8;
+    --ui-bg-surface: #f2f2f4;
+    --ui-bg-disabled: #e4e4e8;
+    --ui-fg-base: #141420;
+    --ui-fg-subtle: #374151;
+    --ui-fg-muted: #6b7280;
+    --ui-fg-disabled: #9ca3af;
+    --ui-fg-on-color: #ffffff;
+    --ui-border-base: #e4e4e8;
+    --ui-border-strong: #d0d0d6;
+  }
+
+  /* Dark theme base styles */
+  [data-mode="dark"] {
+    color-scheme: dark;
+  }
+  
+  [data-mode="dark"] body {
+    @apply bg-brand-dark-bg text-brand-dark-text-primary;
+  }
+  
+  /* Override Medusa UI colors for dark theme */
+  [data-mode="dark"] {
+    --ui-bg-base: #101018;
+    --ui-bg-subtle: #16161f;
+    --ui-bg-surface: #1e1e2a;
+    --ui-bg-disabled: #2a2a38;
+    --ui-fg-base: #e5e5ea;
+    --ui-fg-subtle: #9898a8;
+    --ui-fg-muted: #696978;
+    --ui-fg-disabled: #505058;
+    --ui-fg-on-color: #ffffff;
+    --ui-border-base: #2a2a38;
+    --ui-border-strong: #3e3e4c;
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label {
+    @apply -translate-y-2 text-xsmall-regular;
+  }
+
+  input:focus ~ label {
+    @apply left-0;
+  }
+
+  /* Light mode autofill */
+  [data-mode="light"] input:-webkit-autofill,
+  [data-mode="light"] input:-webkit-autofill:hover,
+  [data-mode="light"] input:-webkit-autofill:focus,
+  [data-mode="light"] textarea:-webkit-autofill,
+  [data-mode="light"] textarea:-webkit-autofill:hover,
+  [data-mode="light"] textarea:-webkit-autofill:focus,
+  [data-mode="light"] select:-webkit-autofill,
+  [data-mode="light"] select:-webkit-autofill:hover,
+  [data-mode="light"] select:-webkit-autofill:focus {
+    border: 1px solid #212121;
+    -webkit-text-fill-color: #212121;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Dark mode autofill */
+  [data-mode="dark"] input:-webkit-autofill,
+  [data-mode="dark"] input:-webkit-autofill:hover,
+  [data-mode="dark"] input:-webkit-autofill:focus,
+  [data-mode="dark"] textarea:-webkit-autofill,
+  [data-mode="dark"] textarea:-webkit-autofill:hover,
+  [data-mode="dark"] textarea:-webkit-autofill:focus,
+  [data-mode="dark"] select:-webkit-autofill,
+  [data-mode="dark"] select:-webkit-autofill:hover,
+  [data-mode="dark"] select:-webkit-autofill:focus {
+    border: 1px solid #252532;
+    -webkit-text-fill-color: #e5e5ea;
+    -webkit-box-shadow: 0 0 0px 1000px #1a1a26 inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  /* ===== LIGHT MODE OVERRIDES ===== */
+  
+  /* Brand dark colors -> light equivalents */
+  [data-mode="light"] .bg-brand-dark-bg {
+    background-color: #fafafa !important;
+  }
+  
+  [data-mode="light"] .bg-brand-dark-surface {
+    background-color: #f7f7f8 !important;
+  }
+  
+  [data-mode="light"] .bg-brand-dark-elevated {
+    background-color: #f2f2f4 !important;
+  }
+  
+  [data-mode="light"] .border-brand-dark-border {
+    border-color: #e4e4e8 !important;
+  }
+  
+  [data-mode="light"] .text-brand-dark-text,
+  [data-mode="light"] .text-brand-dark-text-primary {
+    color: #111827 !important;
+  }
+  
+  [data-mode="light"] .text-brand-dark-text-secondary {
+    color: #374151 !important;
+  }
+  
+  [data-mode="light"] .text-brand-dark-text-muted {
+    color: #6b7280 !important;
+  }
+
+  /* ===== DARK MODE OVERRIDES ===== */
+
+  /* Dark theme overrides for hardcoded colors */
+  [data-mode="dark"] .bg-white {
+    @apply bg-brand-dark-surface;
+  }
+
+  [data-mode="dark"] .text-black {
+    @apply text-brand-dark-text-primary;
+  }
+
+  [data-mode="dark"] .bg-gray-50,
+  [data-mode="dark"] .bg-gray-100 {
+    @apply bg-brand-dark-elevated;
+  }
+
+  [data-mode="dark"] .bg-gray-200 {
+    @apply bg-brand-dark-border;
+  }
+
+  [data-mode="dark"] .bg-gray-600,
+  [data-mode="dark"] .bg-gray-700,
+  [data-mode="dark"] .bg-gray-900 {
+    @apply bg-brand-purple-700;
+  }
+
+  [data-mode="dark"] .text-gray-600 {
+    @apply text-brand-dark-text-secondary;
+  }
+
+  [data-mode="dark"] .border-gray-200,
+  [data-mode="dark"] .border-gray-300 {
+    @apply border-brand-dark-border;
+  }
+
+  [data-mode="dark"] .hover\:bg-gray-50:hover,
+  [data-mode="dark"] .hover\:bg-gray-200:hover {
+    @apply bg-brand-dark-elevated;
+  }
+
+  [data-mode="dark"] .ring-white {
+    @apply ring-brand-dark-border;
+  }
+
+  [data-mode="dark"] .ring-offset-gray-300 {
+    @apply ring-offset-brand-dark-border;
+  }
+
+  /* Accent color overrides with orange (Lambda brand color) */
+  [data-mode="dark"] .contrast-btn {
+    @apply border-brand-orange-500 text-brand-orange-500 hover:bg-brand-orange-500 hover:text-white;
+  }
+
+  /* Primary button styles with orange accent */
+  [data-mode="dark"] button[data-variant="primary"],
+  [data-mode="dark"] .bg-ui-button-inverted {
+    @apply bg-brand-orange-500 text-white hover:bg-brand-orange-400;
+  }
+
+  /* Focus states with orange */
+  [data-mode="dark"] *:focus-visible {
+    @apply ring-brand-orange-500 ring-offset-brand-dark-bg;
+  }
+
+  /* Selection color */
+  [data-mode="dark"] ::selection {
+    @apply bg-brand-orange-500 text-white;
+  }
+  
+  [data-mode="light"] ::selection {
+    @apply bg-brand-orange-500 text-white;
+  }
+}
+
+@layer components {
+  .content-container {
+    @apply max-w-[1440px] w-full mx-auto px-6;
+  }
+
+  /* Per-page dropdown — base/fallback */
+  .per-page-dropdown {
+    @apply rounded px-3 py-2 text-sm cursor-pointer;
+    background: var(--ui-bg-surface, #f2f2f4);
+    color: var(--ui-fg-base, #141420);
+    border: 1px solid var(--ui-border-base, #e4e4e8);
+    appearance: auto;
+  }
+  .per-page-dropdown:hover {
+    background: var(--ui-bg-subtle, #f7f7f8);
+  }
+
+  .contrast-btn {
+    @apply px-4 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors duration-200 ease-in;
+  }
+
+  /* Dark theme component overrides */
+  [data-mode="dark"] .content-container {
+    @apply text-brand-dark-text-primary;
+  }
+  
+  [data-mode="light"] .content-container {
+    color: #111827;
+  }
+
+  /* Card and surface backgrounds */
+  [data-mode="dark"] .shadow,
+  [data-mode="dark"] .shadow-md,
+  [data-mode="dark"] .shadow-lg,
+  [data-mode="dark"] .drop-shadow-md {
+    --tw-shadow-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .text-xsmall-regular {
+    @apply text-[10px] leading-4 font-normal;
+  }
+
+  .text-small-regular {
+    @apply text-xs leading-5 font-normal;
+  }
+
+  .text-small-semi {
+    @apply text-xs leading-5 font-semibold;
+  }
+
+  .text-base-regular {
+    @apply text-sm leading-6 font-normal;
+  }
+
+  .text-base-semi {
+    @apply text-sm leading-6 font-semibold;
+  }
+
+  .text-large-regular {
+    @apply text-base leading-6 font-normal;
+  }
+
+  .text-large-semi {
+    @apply text-base leading-6 font-semibold;
+  }
+
+  .text-xl-regular {
+    @apply text-2xl leading-[36px] font-normal;
+  }
+
+  .text-xl-semi {
+    @apply text-2xl leading-[36px] font-semibold;
+  }
+
+  .text-2xl-regular {
+    @apply text-[30px] leading-[48px] font-normal;
+  }
+
+  .text-2xl-semi {
+    @apply text-[30px] leading-[48px] font-semibold;
+  }
+
+  .text-3xl-regular {
+    @apply text-[32px] leading-[44px] font-normal;
+  }
+
+  .text-3xl-semi {
+    @apply text-[32px] leading-[44px] font-semibold;
+  }
+}
+
+/* ===== GAME BACKGROUND — LIGHT/DARK MODE TOGGLE ===== */
+
+/* Dark mode: show dark bg, hide light bg */
+[data-mode="dark"] .game-bg--dark { display: block; }
+[data-mode="dark"] .game-bg--light { display: none; }
+
+/* Light mode: show light bg, hide dark bg */
+[data-mode="light"] .game-bg--dark { display: none; }
+[data-mode="light"] .game-bg--light { display: block; }
+
+/* ===== GAME THEME SYSTEM ===== */
+
+/* Themed text classes — only apply when inside .game-theme */
+.game-theme .game-themed-title {
+  color: var(--game-text);
+  font-family: var(--game-title-font, inherit);
+}
+
+.game-theme .game-themed-text {
+  color: var(--game-text);
+}
+
+.game-theme .game-themed-text-secondary {
+  color: var(--game-text-secondary);
+}
+
+.game-theme .game-themed-link:hover {
+  color: var(--game-accent) !important;
+}
+
+/* ===== TF2 INVENTORY THEME ===== */
+.game-theme--tf2 {
+  min-height: 100vh;
+}
+
+/* Content container gets the brown inventory background */
+.game-theme--tf2 .content-container {
+  color: var(--game-text);
+}
+
+/* Content body panel */
+.game-theme--tf2 [data-testid="category-container"] {
+  background: transparent;
+  padding: 1.5rem;
+}
+
+.game-theme--tf2 [data-testid="category-products"] {
+  background: var(--game-content-bg);
+  border: 4px solid var(--game-card-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  row-gap: 0.5rem !important;
+}
+
+/* Separate inventory panel boxes (Class Favorites / Browse Catalog on TF2 root page 1) */
+.game-theme--tf2 .tf2-inventory-panel {
+  background: var(--game-content-bg);
+  border: 4px solid var(--game-card-border);
+  border-radius: 10px;
+  padding: 1.5rem 1.5rem 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Pagination separator line and tighter spacing inside inventory panels */
+.game-theme--tf2 .tf2-inventory-panel [data-testid="products-list"] + div {
+  border-top: 2px solid var(--game-card-border);
+  padding-top: 0.75rem;
+  margin-top: 1rem !important;
+}
+
+/* Sidebar styling */
+.game-theme--tf2 .flex.small\:flex-col {
+  color: var(--game-text);
+}
+
+.game-theme--tf2 .flex.small\:flex-col a {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Game/catalog title links match "Browse Catalog" heading color */
+.game-theme--tf2 .flex.small\:flex-col a[data-game-title="true"] {
+  color: var(--game-text) !important;
+}
+
+.game-theme--tf2 .flex.small\:flex-col a:hover,
+.game-theme--tf2 .flex.small\:flex-col a.text-brand-orange-500 {
+  color: var(--game-accent) !important;
+}
+
+/* Sort radio labels */
+.game-theme--tf2 label[data-testid="radio-label"] {
+  color: var(--game-text-secondary) !important;
+}
+
+.game-theme--tf2 label[data-testid="radio-label"][data-active="true"] {
+  color: var(--game-text) !important;
+}
+
+/* Product cards — TF2 inventory cell style */
+.game-theme--tf2 [data-testid="product-wrapper"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Thick border on image container only (Medusa Container with .relative) */
+.game-theme--tf2 [data-testid="product-wrapper"] > div:first-child {
+  border: 4px solid var(--game-card-border) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: border-color 0.15s ease, border-width 0.15s ease;
+  box-shadow: none !important;
+}
+
+.game-theme--tf2 [data-testid="product-wrapper"]:hover > div:first-child {
+  border-color: #CF6A42 !important;
+  border-width: 5px !important;
+}
+
+/* Product title — gold, centered, larger, max 2 lines */
+.game-theme--tf2 [data-testid="product-title"],
+.game-theme--tf2 .text-ui-fg-subtle[data-testid="product-title"] {
+  color: #FFD700 !important;
+  font-family: 'TF2 Build', sans-serif !important;
+  font-size: 1.24em !important;
+  text-align: center !important;
+  white-space: normal !important;
+  text-overflow: unset !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  max-width: 15ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  word-break: keep-all !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+  padding-left: 0.15em !important;
+  padding-right: 0.15em !important;
+}
+
+/* Center the text container */
+.game-theme--tf2 [data-testid="product-wrapper"] .flex.flex-col.mt-4 {
+  align-items: center;
+  text-align: center;
+}
+
+.game-theme--tf2 .group:hover [data-testid="product-title"],
+.game-theme--tf2 .group:hover .text-ui-fg-subtle[data-testid="product-title"] {
+  color: #CF6A42 !important;
+}
+
+/* Product price */
+.game-theme--tf2 [data-testid="product-price"],
+.game-theme--tf2 .text-ui-fg-muted {
+  color: #C0B9AD !important;
+  font-weight: 600 !important;
+}
+
+/* Breadcrumb text */
+.game-theme--tf2 .text-2xl-semi {
+  color: var(--game-text);
+}
+
+.game-theme--tf2 .text-ui-fg-subtle {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Breadcrumb — all TF2 Build font, current page orange */
+.game-theme--tf2 [data-testid="category-breadcrumb"] {
+  font-family: 'TF2 Build', sans-serif !important;
+  letter-spacing: 0.05em;
+}
+
+.game-theme--tf2 [data-testid="breadcrumb-parent"] {
+  font-family: 'TF2 Build', sans-serif !important;
+  color: var(--game-text) !important;
+}
+
+.game-theme--tf2 [data-testid="breadcrumb-parent"] a {
+  color: var(--game-text) !important;
+  text-decoration: none;
+}
+
+.game-theme--tf2 [data-testid="category-page-title"] {
+  font-family: 'TF2 Build', sans-serif !important;
+  color: #CF6A42 !important;
+  letter-spacing: 0.05em;
+}
+
+/* Subcategory links in sidebar */
+.game-theme--tf2 .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Pagination — distinct boxed buttons, orange active */
+.game-theme--tf2 [data-testid="page-button"] {
+  background: #776b61 !important;
+  color: #f3e8d6 !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-family: 'TF2 Build', sans-serif;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  line-height: 1;
+}
+
+.game-theme--tf2 [data-testid="page-button"]:hover {
+  background: #887c72 !important;
+  color: #f3e8d6 !important;
+}
+
+.game-theme--tf2 [data-testid="page-button"][data-current="true"] {
+  background: #CF6A42 !important;
+  color: #24201B !important;
+  cursor: default;
+}
+
+.game-theme--tf2 [data-testid="page-button"][data-current="true"]:hover {
+  background: #CF6A42 !important;
+  color: #24201B !important;
+}
+
+/* Per-page selector — TF2 theme */
+.game-theme--tf2 .per-page-dropdown {
+  background: #776b61 !important;
+  color: #f3e8d6 !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: 'TF2 Build', sans-serif;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  line-height: 1;
+  appearance: auto;
+  width: 4.5rem;
+}
+
+.game-theme--tf2 .per-page-dropdown:hover {
+  background: #887c72 !important;
+}
+
+.game-theme--tf2 [data-testid="per-page-label"] {
+  font-family: 'TF2 Build', sans-serif;
+  color: #f3e8d6 !important;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+/* ===== TF2 Section Titles (Class Favorites / Browse Catalog) ===== */
+.game-theme--tf2 .tf2-section-title {
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--game-card-border);
+}
+
+.game-theme--tf2 .tf2-section-title__text {
+  font-family: 'TF2 Build', sans-serif !important;
+  font-size: 1.75rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  color: #f3e8d6;
+}
+
+.game-theme--tf2 .tf2-section-title__class {
+  color: var(--game-accent);
+}
+
+/* ===== TF2 Class Favorites Section ===== */
+.game-theme--tf2 .tf2-class-favorites {
+  margin-bottom: 0;
+}
+
+/* Override dark theme header when in game theme — keep header normal */
+.game-theme--tf2 header {
+  background: rgba(16, 16, 24, 0.95) !important;
+}
+
+.game-theme--tf2 footer {
+  background: rgb(16, 16, 24) !important;
+  position: relative;
+  z-index: 20;
+}
+
+/* ============================================================
+   GARRY'S MOD THEME
+   ============================================================ */
+
+.game-theme--gmod {
+  font-family: 'Coolvetica', sans-serif;
+}
+
+.game-theme--gmod .content-container {
+  background: transparent;
+}
+
+.game-theme--gmod [data-testid="category-container"] {
+  background: transparent;
+  padding: 1.5rem;
+}
+
+.game-theme--gmod [data-testid="category-products"] {
+  background: rgba(150, 153, 157, 0.15);
+  border: 1px solid var(--game-border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  row-gap: 0.5rem !important;
+}
+
+/* Sidebar styling */
+.game-theme--gmod .flex.small\:flex-col {
+  color: var(--game-text);
+}
+
+.game-theme--gmod .flex.small\:flex-col a {
+  color: var(--game-text) !important;
+  font-family: 'Coolvetica', sans-serif !important;
+}
+
+.game-theme--gmod .flex.small\:flex-col a:hover,
+.game-theme--gmod .flex.small\:flex-col a.text-brand-orange-500 {
+  color: var(--game-accent) !important;
+}
+
+/* Radio/filter labels */
+.game-theme--gmod label[data-testid="radio-label"] {
+  color: var(--game-text-secondary) !important;
+  font-family: 'Coolvetica', sans-serif !important;
+}
+
+.game-theme--gmod label[data-testid="radio-label"][data-active="true"] {
+  color: var(--game-accent) !important;
+}
+
+/* Product cards — no outer wrapper bg */
+.game-theme--gmod [data-testid="product-wrapper"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Item card border — subtle at rest, blue glow on hover */
+.game-theme--gmod [data-testid="product-wrapper"] > div:first-child {
+  border: 3px solid rgba(230, 234, 230, 0.9) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: none !important;
+}
+
+.game-theme--gmod [data-testid="product-wrapper"]:hover > div:first-child {
+  border-color: var(--game-card-hover-border) !important;
+  box-shadow: 0 0 12px 3px rgba(72, 164, 255, 0.35),
+              inset 0 0 20px 4px rgba(72, 164, 255, 0.08) !important;
+}
+
+/* Product title — white, centered, Coolvetica */
+.game-theme--gmod [data-testid="product-title"],
+.game-theme--gmod .text-ui-fg-subtle[data-testid="product-title"] {
+  color: #2A2D2F !important;
+  font-family: 'Coolvetica', sans-serif !important;
+  font-size: 1.35em !important;
+  letter-spacing: 0.05em;
+  text-align: center !important;
+  white-space: normal !important;
+  text-overflow: unset !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  max-width: 14ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  word-break: keep-all !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+  padding-left: 0.15em !important;
+  padding-right: 0.15em !important;
+}
+
+/* Center the text container */
+.game-theme--gmod [data-testid="product-wrapper"] .flex.flex-col.mt-4 {
+  align-items: center;
+  text-align: center;
+}
+
+/* Title stays white on hover */
+.game-theme--gmod .group:hover [data-testid="product-title"],
+.game-theme--gmod .group:hover .text-ui-fg-subtle[data-testid="product-title"] {
+  color: #2A2D2F !important;
+}
+
+/* Product price */
+.game-theme--gmod [data-testid="product-price"],
+.game-theme--gmod .text-ui-fg-muted {
+  color: #4A4D50 !important;
+  font-weight: 600 !important;
+}
+
+/* Breadcrumb */
+.game-theme--gmod [data-testid="category-breadcrumb"] {
+  font-family: 'Coolvetica', sans-serif !important;
+  letter-spacing: 0.05em;
+}
+
+.game-theme--gmod [data-testid="breadcrumb-parent"] {
+  font-family: 'Coolvetica', sans-serif !important;
+  color: var(--game-text) !important;
+}
+
+.game-theme--gmod [data-testid="breadcrumb-parent"] a {
+  color: var(--game-text) !important;
+  text-decoration: none;
+}
+
+/* Category page title — active page in accent blue */
+.game-theme--gmod [data-testid="category-page-title"] {
+  font-family: 'Coolvetica', sans-serif !important;
+  color: var(--game-accent) !important;
+  letter-spacing: 0.05em;
+}
+
+/* Subcategory links in sidebar */
+.game-theme--gmod .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Pagination — boxed buttons, blue active */
+.game-theme--gmod [data-testid="page-button"] {
+  background: #6B6E72 !important;
+  color: #2A2C2E !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-family: 'Coolvetica', sans-serif;
+  font-size: 1.25em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  line-height: 1;
+}
+
+.game-theme--gmod [data-testid="page-button"]:hover {
+  background: #7D8084 !important;
+  color: #2A2C2E !important;
+}
+
+.game-theme--gmod [data-testid="page-button"][data-current="true"] {
+  background: #48A4FF !important;
+  color: #2A2C2E !important;
+  cursor: default;
+}
+
+.game-theme--gmod [data-testid="page-button"][data-current="true"]:hover {
+  background: #48A4FF !important;
+  color: #2A2C2E !important;
+}
+
+/* Per-page selector — Gmod theme */
+.game-theme--gmod .per-page-dropdown {
+  background: #3B3D3F !important;
+  color: #D2D2D2 !important;
+  border: 1px solid #555 !important;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  appearance: auto;
+}
+
+.game-theme--gmod .per-page-dropdown:hover {
+  background: #4A4C4E !important;
+}
+
+.game-theme--gmod [data-testid="per-page-label"] {
+  color: #D2D2D2 !important;
+  font-size: 0.95em;
+}
+
+/* Keep header normal */
+.game-theme--gmod header {
+  background: rgba(16, 16, 24, 0.95) !important;
+}
+
+.game-theme--gmod footer {
+  background: rgb(16, 16, 24) !important;
+  position: relative;
+  z-index: 20;
+}
+
+.game-theme--gmod .text-2xl-semi {
+  color: var(--game-text);
+}
+
+.game-theme--gmod .text-ui-fg-subtle {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Gmod Window Chrome — Source engine spawnmenu style */
+.gmod-window {
+  border: none;
+  border-radius: 8px;
+  background: #777D7D;
+  padding: 6px 8px 8px 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Top bar: tab on left, controls on right */
+.gmod-topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 0;
+  user-select: none;
+}
+
+/* Tab — sits on top of inner panel */
+.gmod-tab {
+  background: #48A4FF;
+  border: 1px solid #000000;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 3px 16px;
+  position: relative;
+  z-index: 1;
+  top: 1px;
+}
+
+.gmod-tab-label {
+  font-family: 'Coolvetica', sans-serif;
+  font-size: 26px;
+  color: #EFF2EF;
+  letter-spacing: 0.02em;
+}
+
+/* Decorative window controls — non-interactable */
+.gmod-controls {
+  display: flex;
+  gap: 3px;
+  pointer-events: none;
+  padding-bottom: 6px;
+}
+
+.gmod-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 20px;
+  border: 1px solid #5A5D60;
+  border-radius: 3px;
+  background: #4E5256;
+  font-size: 10px;
+  font-weight: 900;
+  color: #A0A0A0;
+  cursor: default;
+}
+
+.gmod-ctrl-close {
+  color: #A0A0A0;
+}
+
+/* Inner content panel — inset from outer frame */
+.gmod-inner {
+  background: rgba(239, 242, 239, 0.85);
+  border: 1px solid #000000;
+  border-radius: 0 6px 6px 6px;
+  padding: 1.5rem;
+  min-height: 200px;
+}
+
+/* When gmod window is used, remove the separate category-products background */
+.game-theme--gmod [data-testid="category-products"] {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ===== GAME SIDEBAR — THEMED CONTAINER ===== */
+
+/* Base sidebar container — always readable, always separate */
+.game-sidebar {
+  background: var(--game-content-bg);
+  border: 1px solid var(--game-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove excess inner spacing so sidebar padding controls all offsets evenly */
+.game-sidebar .flex.small\:flex-col {
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  flex: 1 1 auto;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.game-sidebar .flex.flex-col.gap-3.mb-6 {
+  margin-bottom: 0 !important;
+}
+
+.game-sidebar > .flex.small\:flex-col.gap-8.py-4.mb-8 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Push sort section to the bottom of sidebar with comfortable gaps */
+.game-sidebar .flex.gap-x-3.flex-col.gap-y-3 {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Sidebar text inherits game theme colors */
+.game-sidebar a,
+.game-sidebar span {
+  color: var(--game-text) !important;
+}
+
+.game-sidebar:not([data-theme="portal"]) a:hover {
+  color: var(--game-accent) !important;
+}
+
+/* Active category link */
+.game-sidebar:not([data-theme="portal"]) a.text-brand-orange-500 {
+  color: var(--game-accent) !important;
+}
+
+/* --- GMod sidebar link colors --- */
+.game-sidebar[data-theme="gmod"] a {
+  color: #FFFFFF !important;
+}
+
+.game-sidebar[data-theme="gmod"] a:hover {
+  color: #48A4FF !important;
+}
+
+/* Active/selected page — blue highlight */
+.game-sidebar[data-theme="gmod"] a.text-brand-orange-500 {
+  color: #48A4FF !important;
+}
+
+/* Hide the radio dot in game sidebar */
+.game-sidebar svg.w-3 {
+  display: none !important;
+}
+
+/* Remove the negative margin shift when dot is hidden */
+.game-sidebar .ml-\[-23px\] {
+  margin-left: 0 !important;
+}
+
+/* Sort radio labels */
+.game-sidebar label[data-testid="radio-label"] {
+  color: var(--game-text-secondary) !important;
+}
+
+.game-sidebar label[data-testid="radio-label"][data-active="true"] {
+  color: var(--game-text) !important;
+}
+
+/* Subcategory border */
+.game-sidebar .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Sort title */
+.game-sidebar h3,
+.game-sidebar .text-base-semi {
+  color: var(--game-text) !important;
+}
+
+/* --- TF2 sidebar specifics --- */
+.game-sidebar[data-theme="tf2"] {
+  background: rgba(36, 32, 27, 0.92);
+  border: 4px solid #8A8070;
+  border-radius: 10px;
+}
+
+.game-sidebar[data-theme="tf2"] a,
+.game-sidebar[data-theme="tf2"] span,
+.game-sidebar[data-theme="tf2"] h3 {
+  font-family: 'TF2 Build', sans-serif !important;
+}
+
+/* --- GMod sidebar specifics --- */
+.game-sidebar[data-theme="gmod"] {
+  background: rgba(119, 125, 125, 0.88);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+.game-sidebar[data-theme="gmod"] a,
+.game-sidebar[data-theme="gmod"] span,
+.game-sidebar[data-theme="gmod"] h3 {
+  font-family: 'Coolvetica', sans-serif !important;
+  font-size: 1.3rem !important;
+  color: #EFF2EF !important;
+  letter-spacing: 0.05em;
+}
+
+/* Tighten inner spacing */
+.game-sidebar[data-theme="gmod"] .flex.small\:flex-col {
+  gap: 0.4rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Subcategory text slightly smaller than parents */
+.game-sidebar[data-theme="gmod"] ul a {
+  font-size: 1.05rem !important;
+}
+
+/* Sort section — smaller to match TF2 sidebar */
+.game-sidebar[data-theme="gmod"] label[data-testid="radio-label"] {
+  font-size: 0.9rem !important;
+}
+
+.game-sidebar[data-theme="gmod"] h3 {
+  font-size: 1rem !important;
+}
+
+/* ============================================================
+   PORTAL / APERTURE SCIENCE THEME
+   ============================================================ */
+
+.game-theme--portal {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.game-theme--portal .content-container {
+  color: var(--game-text);
+}
+
+.game-theme--portal [data-testid="category-container"] {
+  background: transparent;
+  padding: 1.5rem;
+}
+
+.game-theme--portal [data-testid="category-products"] {
+  --portal-tile: calc(220px / 3);
+  --portal-pad: calc(var(--portal-tile) / 3); /* ~24px — tight but grid-aligned */
+  background:
+    linear-gradient(to right, rgba(160, 160, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(160, 160, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(to right, rgba(180, 180, 180, 0.08) 3px, transparent 3px),
+    linear-gradient(to bottom, rgba(180, 180, 180, 0.08) 3px, transparent 3px),
+    #DFDFDF;
+  background-size: var(--portal-tile) var(--portal-tile);
+  background-origin: padding-box;
+  background-position: 0 0;
+  border: none;
+  border-radius: 0;
+  padding: var(--portal-pad);
+  box-shadow:
+    inset 0 0 120px rgba(0, 0, 0, 0.55),
+    inset 0 0 60px rgba(0, 0, 0, 0.4),
+    inset 0 0 25px rgba(0, 0, 0, 0.35),
+    inset 0 0 8px rgba(0, 0, 0, 0.25);
+  margin: 4px;
+  row-gap: 0.5rem !important;
+  box-sizing: border-box;
+}
+
+/* Sidebar styling */
+.game-theme--portal .flex.small\:flex-col {
+  color: var(--game-text);
+}
+
+/* General sidebar text — exclude game-sidebar from these */
+.game-theme--portal :not(.game-sidebar) > .flex.small\:flex-col a {
+  color: var(--game-text-secondary) !important;
+}
+
+.game-theme--portal :not(.game-sidebar) > .flex.small\:flex-col a:hover,
+.game-theme--portal :not(.game-sidebar) > .flex.small\:flex-col a.text-brand-orange-500 {
+  color: var(--game-accent) !important;
+}
+
+/* Radio/filter labels */
+.game-theme--portal label[data-testid="radio-label"] {
+  color: var(--game-text-secondary) !important;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.08em;
+}
+
+.game-theme--portal label[data-testid="radio-label"][data-active="true"] {
+  color: var(--game-accent) !important;
+}
+
+/* Product cards — white panels with subtle borders */
+.game-theme--portal [data-testid="product-wrapper"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Card border and shadow — depth with corner shading + alternating glow on hover */
+.game-theme--portal [data-testid="product-wrapper"] > div:first-child {
+  border: 2px solid var(--game-card-border) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08),
+              inset 0 0 20px 4px rgba(0, 0, 0, 0.06) !important;
+  background: var(--game-card-bg);
+}
+
+/* Hover: blue glow */
+.game-theme--portal [data-testid="product-wrapper"]:hover > div:first-child {
+  border-color: #00A2FF !important;
+  box-shadow: 0 0 16px 2px rgba(0, 162, 255, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Product title — clean, uppercase, dark gray */
+.game-theme--portal [data-testid="product-title"],
+.game-theme--portal .text-ui-fg-subtle[data-testid="product-title"] {
+  color: var(--game-text) !important;
+  font-size: 1.1em !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0.08em;
+  text-align: center !important;
+  white-space: normal !important;
+  text-overflow: unset !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  max-width: 20ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  word-break: keep-all !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+  text-wrap: balance !important;
+  padding-left: 0.15em !important;
+  padding-right: 0.15em !important;
+}
+
+/* Center the text container */
+.game-theme--portal [data-testid="product-wrapper"] .flex.flex-col.mt-4 {
+  align-items: center;
+  text-align: center;
+}
+
+/* Title color on hover — blue */
+.game-theme--portal [data-testid="product-wrapper"]:hover [data-testid="product-title"],
+.game-theme--portal [data-testid="product-wrapper"]:hover .text-ui-fg-subtle[data-testid="product-title"] {
+  color: #00A2FF !important;
+}
+
+/* Product price — muted gray */
+.game-theme--portal [data-testid="product-price"],
+.game-theme--portal .text-ui-fg-muted {
+  color: var(--game-price) !important;
+  font-weight: 500 !important;
+}
+
+/* Breadcrumb — clean, uppercase */
+.game-theme--portal [data-testid="category-breadcrumb"] {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.1em;
+}
+
+.game-theme--portal [data-testid="breadcrumb-parent"] {
+  color: var(--game-text-secondary) !important;
+}
+
+.game-theme--portal [data-testid="breadcrumb-parent"] a {
+  color: var(--game-text-secondary) !important;
+  text-decoration: none;
+}
+
+.game-theme--portal [data-testid="breadcrumb-parent"] a:hover {
+  color: var(--game-accent) !important;
+}
+
+/* Category page title — active page in portal blue */
+.game-theme--portal [data-testid="category-page-title"] {
+  color: #2A2A2A !important;
+  font-family: 'DIN Medium', 'DIN', sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 2.5rem !important;
+  font-weight: 550 !important;
+}
+
+/* Subcategory links in sidebar */
+.game-theme--portal .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Pagination — clean minimal buttons, blue active state */
+.game-theme--portal [data-testid="page-button"] {
+  background: #E8E8E8 !important;
+  color: var(--game-text) !important;
+  border: 1px solid var(--game-border) !important;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.game-theme--portal [data-testid="page-button"]:hover {
+  background: #D8D8D8 !important;
+  border-color: var(--game-accent) !important;
+}
+
+.game-theme--portal [data-testid="page-button"][data-current="true"] {
+  background: var(--game-accent) !important;
+  color: #FFFFFF !important;
+  border-color: var(--game-accent) !important;
+  cursor: default;
+}
+
+.game-theme--portal [data-testid="page-button"][data-current="true"]:hover {
+  background: var(--game-accent) !important;
+  color: #FFFFFF !important;
+}
+
+/* Per-page selector — Portal theme */
+.game-theme--portal .per-page-dropdown {
+  background: rgba(30, 30, 40, 0.8) !important;
+  color: #E0E0E0 !important;
+  border: 1px solid var(--game-accent) !important;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  appearance: auto;
+}
+
+.game-theme--portal .per-page-dropdown:hover {
+  background: rgba(50, 50, 60, 0.9) !important;
+}
+
+.game-theme--portal [data-testid="per-page-label"] {
+  color: #E0E0E0 !important;
+  font-size: 0.95em;
+}
+
+/* Keep header normal */
+.game-theme--portal header {
+  background: rgba(16, 16, 24, 0.95) !important;
+}
+
+.game-theme--portal footer {
+  background: rgb(16, 16, 24) !important;
+  position: relative;
+  z-index: 20;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.game-theme--portal .text-2xl-semi {
+  color: var(--game-text);
+}
+
+.game-theme--portal .text-ui-fg-subtle {
+  color: var(--game-text-secondary) !important;
+}
+
+/* --- Portal sidebar specifics --- */
+.game-sidebar[data-theme="portal"] {
+  --portal-tile: calc(220px / 3);
+  background:
+    linear-gradient(to right, rgba(160, 160, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(160, 160, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(to right, rgba(180, 180, 180, 0.08) 3px, transparent 3px),
+    linear-gradient(to bottom, rgba(180, 180, 180, 0.08) 3px, transparent 3px),
+    #DFDFDF;
+  background-size: var(--portal-tile) var(--portal-tile);
+  background-position: 1px 1px, 1px 1px, 0 0, 0 0, 0 0;
+  border: none !important;
+  border-radius: 0;
+  padding: 0;
+  box-shadow:
+    inset 0 0 120px rgba(0, 0, 0, 0.55),
+    inset 0 0 60px rgba(0, 0, 0, 0.4),
+    inset 0 0 25px rgba(0, 0, 0, 0.35),
+    inset 0 0 8px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  /* Height = clean multiple of tile size (6 rows) */
+  min-height: calc(220px / 3 * 6);
+}
+
+/* Sidebar links — block-level rows for full-width highlight, dark text */
+.game-sidebar[data-theme="portal"] a {
+  color: #2A2A2A !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  display: block !important;
+  padding: 8px 16px !important;
+  margin: 0 !important;
+  transition: background 0s ease, color 0.25s ease 0.08s;
+}
+
+.game-sidebar[data-theme="portal"] h3,
+.game-sidebar[data-theme="portal"] span {
+  color: #222222 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Hover — bar appears instantly, text fades to white after short delay */
+.game-sidebar[data-theme="portal"] a:hover,
+.game-theme--portal .game-sidebar[data-theme="portal"] a:hover {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  transition: background 0s ease, color 0.25s ease 0.08s !important;
+}
+
+/* Active/selected — same dark row highlight, white text (not blue) */
+.game-sidebar[data-theme="portal"] a.text-brand-orange-500,
+.game-theme--portal .game-sidebar[data-theme="portal"] a.text-brand-orange-500 {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+}
+
+/* Sort section — align with game titles */
+.game-sidebar[data-theme="portal"] .flex.gap-x-3.flex-col {
+  padding: 0 16px;
+}
+
+/* Sort heading */
+.game-sidebar[data-theme="portal"] .txt-compact-small-plus {
+  font-weight: 600 !important;
+}
+
+/* Sort radio items — remove negative margin shift, align left */
+.game-sidebar[data-theme="portal"] .flex.gap-x-2.items-center {
+  margin-left: 0 !important;
+}
+
+/* Sort section labels — readable, blue when active */
+.game-sidebar[data-theme="portal"] label[data-testid="radio-label"] {
+  color: #6E6E6E !important;
+  display: block;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-weight: 500 !important;
+  transition: color 0.15s ease;
+}
+
+.game-sidebar[data-theme="portal"] label[data-testid="radio-label"]:hover {
+  background: transparent !important;
+  color: #00A2FF !important;
+  box-shadow: none !important;
+}
+
+.game-sidebar[data-theme="portal"] label[data-testid="radio-label"][data-active="true"] {
+  background: transparent !important;
+  color: #00A2FF !important;
+  box-shadow: none !important;
+}
+
+/* Sort heading inside portal sidebar */
+.game-sidebar[data-theme="portal"] h3 {
+  padding: 8px 16px !important;
+}
+
+/* Subcategory border — match grid color */
+.game-sidebar[data-theme="portal"] .border-ui-border-base {
+  border-color: rgba(180, 180, 180, 0.3) !important;
+}
+
+/* Sub-links (e.g. TF2 classes) within portal sidebar */
+.game-sidebar[data-theme="portal"] ul a {
+  font-size: 0.9rem !important;
+  padding: 5px 16px 5px 28px !important;
+}
+
+/* Ensure inner containers don't add gaps that prevent full-width highlight */
+.game-sidebar[data-theme="portal"] .flex.flex-col.gap-3 {
+  gap: 0 !important;
+}
+
+.game-sidebar[data-theme="portal"] .group {
+  margin: 0 !important;
+}
+
+/* Subcategory list — no left border/margin in portal */
+.game-sidebar[data-theme="portal"] ul.flex.flex-col {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  border-left: none !important;
+}
+
+/* ===== TF2 PRODUCT PAGE ===== */
+
+/* Product container — brown panel with thick border like inventory */
+.game-theme--tf2 [data-testid="product-container"] {
+  background: var(--game-content-bg);
+  border: 4px solid var(--game-card-border);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  max-width: 1100px;
+  margin: 2rem auto;
+}
+
+/* Product title — TF2 Build font, gold color */
+.game-theme--tf2 [data-testid="product-container"] [data-testid="product-title"] {
+  font-family: 'TF2 Build', sans-serif !important;
+  color: #FFD700 !important;
+  font-size: 2rem !important;
+  letter-spacing: 0.05em;
+}
+
+/* Product description text */
+.game-theme--tf2 [data-testid="product-container"] [data-testid="product-description"] {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Collection link */
+.game-theme--tf2 [data-testid="product-container"] .text-ui-fg-muted {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Image container — thick border like inventory cells */
+/* Main product image only — not thumbnails */
+.game-theme--tf2 [data-testid="product-container"] .aspect-square:not(.product-thumbnail) {
+  border: 4px solid var(--game-card-border) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+
+/* Option buttons */
+/* Option buttons — styled like pagination buttons */
+
+/* Price — gold, larger */
+.game-theme--tf2 [data-testid="product-container"] .text-xl-semi {
+  color: #FFD700 !important;
+  font-family: 'TF2 Build', sans-serif !important;
+  font-size: 1.75rem !important;
+}
+
+.game-theme--tf2 [data-testid="product-container"] .text-xl-semi span {
+  color: #FFD700 !important;
+}
+
+.game-theme--tf2 [data-testid="product-container"] .text-base-regular.text-ui-fg-muted {
+  color: #FFD700 !important;
+  font-family: 'TF2 Build', sans-serif !important;
+}
+
+/* Add to cart button — TF2 orange */
+.game-theme--tf2 [data-testid="product-container"] [data-testid="add-product-button"] {
+  background: #CF6A42 !important;
+  color: #24201B !important;
+  font-family: 'TF2 Build', sans-serif !important;
+  font-size: 1.15em;
+  letter-spacing: 0.05em;
+  border: none !important;
+  border-radius: 6px;
+}
+
+.game-theme--tf2 [data-testid="product-container"] [data-testid="add-product-button"]:hover:not(:disabled) {
+  background: #E8834A !important;
+}
+
+.game-theme--tf2 [data-testid="product-container"] [data-testid="add-product-button"]:disabled {
+  background: #5a4f44 !important;
+  color: #908C82 !important;
+}
+
+/* Stock display */
+.game-theme--tf2 [data-testid="product-container"] .text-ui-fg-interactive {
+  color: #CF6A42 !important;
+}
+
+/* Divider */
+.game-theme--tf2 [data-testid="product-container"] .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Product tabs */
+.game-theme--tf2 [data-testid="product-container"] h3,
+.game-theme--tf2 [data-testid="product-container"] .font-semibold {
+  color: var(--game-text) !important;
+  font-family: 'TF2 Build', sans-serif !important;
+}
+
+.game-theme--tf2 [data-testid="product-container"] .text-small-regular {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Related products section */
+.game-theme--tf2 [data-testid="related-products-container"] {
+  color: var(--game-text) !important;
+}
+
+.game-theme--tf2 .product-page-constraint .text-xl {
+  color: var(--game-text) !important;
+  font-family: 'TF2 Build', sans-serif !important;
+}
+
+/* ===== GMOD PRODUCT PAGE ===== */
+
+/* Product container — GMod window style */
+.game-theme--gmod [data-testid="product-container"] {
+  background: rgba(239, 242, 239, 0.85);
+  border: none;
+  border-radius: 6px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 1100px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+/* Product title — Coolvetica, dark text */
+.game-theme--gmod [data-testid="product-container"] [data-testid="product-title"] {
+  font-family: 'Coolvetica', sans-serif !important;
+  color: #2A2D2F !important;
+  font-size: 2.2rem !important;
+  letter-spacing: normal;
+}
+
+/* Product description */
+.game-theme--gmod [data-testid="product-container"] [data-testid="product-description"] {
+  color: #4A4D50 !important;
+}
+
+/* Collection link */
+.game-theme--gmod [data-testid="product-container"] .text-ui-fg-muted {
+  color: #6B6E72 !important;
+}
+
+/* Image container — subtle border with blue hover glow */
+/* Main product image only — not thumbnails */
+/* Main product image — blue border, no dark outline */
+.game-theme--gmod [data-testid="product-container"] .aspect-square:not(.product-thumbnail),
+.game-theme--gmod [data-testid="product-container"] .shadow-elevation-card-rest.aspect-square {
+  border: 2px solid #48A4FF !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+  --tw-shadow: none !important;
+  --tw-shadow-colored: none !important;
+}
+
+.game-theme--gmod [data-testid="product-container"] .aspect-square:not(.product-thumbnail):hover {
+  box-shadow: 0 0 12px 3px rgba(72, 164, 255, 0.35) !important;
+}
+
+/* Option buttons */
+/* Option buttons — styled like pagination buttons */
+
+/* Price */
+.game-theme--gmod [data-testid="product-container"] .text-xl-semi,
+.game-theme--gmod [data-testid="product-container"] .text-base-regular.text-ui-fg-muted {
+  color: #2A2D2F !important;
+  font-family: 'Coolvetica', sans-serif !important;
+  font-size: 1.5em;
+}
+
+/* Add to cart button — GMod blue */
+.game-theme--gmod [data-testid="product-container"] [data-testid="add-product-button"] {
+  background: #48A4FF !important;
+  color: #FFFFFF !important;
+  font-family: 'Coolvetica', sans-serif !important;
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
+  border: none !important;
+  border-radius: 4px;
+}
+
+.game-theme--gmod [data-testid="product-container"] [data-testid="add-product-button"]:hover:not(:disabled) {
+  background: #2BA5FF !important;
+}
+
+.game-theme--gmod [data-testid="product-container"] [data-testid="add-product-button"]:disabled {
+  background: #6B6E72 !important;
+  color: #A0A0A0 !important;
+}
+
+/* Stock display */
+.game-theme--gmod [data-testid="product-container"] .text-ui-fg-interactive {
+  color: #48A4FF !important;
+}
+
+/* Divider */
+.game-theme--gmod [data-testid="product-container"] .border-ui-border-base {
+  border-color: #6B6E72 !important;
+}
+
+/* Product tabs */
+.game-theme--gmod [data-testid="product-container"] h3,
+.game-theme--gmod [data-testid="product-container"] .font-semibold {
+  color: #2A2D2F !important;
+  font-family: 'Coolvetica', sans-serif !important;
+}
+
+.game-theme--gmod [data-testid="product-container"] .text-small-regular {
+  color: #4A4D50 !important;
+}
+
+/* Product info section — uniform text sizing */
+.game-theme--gmod [data-testid="product-container"] [data-role="info-heading"] {
+  font-family: 'Coolvetica', sans-serif !important;
+  font-size: 1.25rem !important;
+  color: #2A2D2F !important;
+  letter-spacing: normal;
+}
+
+.game-theme--gmod [data-testid="product-container"] [data-role="info-label"] {
+  font-size: 0.85rem !important;
+  color: #2A2D2F !important;
+}
+
+.game-theme--gmod [data-testid="product-container"] [data-role="info-value"] {
+  font-size: 0.8rem !important;
+  color: #4A4D50 !important;
+}
+
+/* Force ALL body text inside product container to be readable black —
+   persistent across light/dark mode */
+.game-theme--gmod [data-testid="product-container"] {
+  color: #1A1C1E !important;
+}
+
+.game-theme--gmod [data-testid="product-container"] span,
+.game-theme--gmod [data-testid="product-container"] p,
+.game-theme--gmod [data-testid="product-container"] label,
+.game-theme--gmod [data-testid="product-container"] div,
+.game-theme--gmod [data-testid="product-container"] li,
+.game-theme--gmod [data-testid="product-container"] button:not(.game-option-btn):not([data-testid="add-product-button"]) {
+  color: #1A1C1E !important;
+}
+
+/* Preserve white text on blue/gray option buttons */
+.game-theme--gmod [data-testid="product-container"] .game-option-btn {
+  color: #FFFFFF !important;
+}
+
+/* Preserve white text on add-to-cart */
+.game-theme--gmod [data-testid="product-container"] [data-testid="add-product-button"] {
+  color: #FFFFFF !important;
+}
+
+/* Preserve blue accent for interactive elements and section titles */
+.game-theme--gmod [data-testid="product-container"] .text-ui-fg-interactive,
+.game-theme--gmod [data-testid="product-container"] a {
+  color: #48A4FF !important;
+}
+
+.game-theme--gmod [data-testid="product-container"] [data-role="section-title"] {
+  color: #48A4FF !important;
+}
+
+/* Related products */
+.game-theme--gmod .product-page-constraint .text-xl {
+  color: #EFF2EF !important;
+  font-family: 'Coolvetica', sans-serif !important;
+}
+
+/* ===== PORTAL PRODUCT PAGE ===== */
+
+/* Product container — Aperture Science test chamber panel with grid background */
+.game-theme--portal [data-testid="product-container"] {
+  --portal-tile: calc(220px / 3);
+  background:
+    linear-gradient(to right, rgba(160, 160, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(160, 160, 160, 0.06) 1px, transparent 1px),
+    linear-gradient(to right, rgba(180, 180, 180, 0.08) 3px, transparent 3px),
+    linear-gradient(to bottom, rgba(180, 180, 180, 0.08) 3px, transparent 3px),
+    #DFDFDF;
+  background-size: var(--portal-tile) var(--portal-tile);
+  border: none;
+  border-radius: 0;
+  padding: 2rem;
+  box-shadow:
+    inset 0 0 120px rgba(0, 0, 0, 0.55),
+    inset 0 0 60px rgba(0, 0, 0, 0.4),
+    inset 0 0 25px rgba(0, 0, 0, 0.35),
+    inset 0 0 8px rgba(0, 0, 0, 0.25);
+  max-width: 1100px;
+  margin: 2rem auto;
+}
+
+/* Product title — clean, uppercase, dark gray */
+.game-theme--portal [data-testid="product-container"] [data-testid="product-title"] {
+  color: var(--game-text) !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Product description */
+.game-theme--portal [data-testid="product-container"] [data-testid="product-description"] {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Collection link */
+.game-theme--portal [data-testid="product-container"] .text-ui-fg-muted {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Main product image only — not thumbnails */
+.game-theme--portal [data-testid="product-container"] .aspect-square:not(.product-thumbnail) {
+  border: 2px solid var(--game-card-border) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08),
+              inset 0 0 20px 4px rgba(0, 0, 0, 0.06) !important;
+  background: #FFFFFF;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-theme--portal [data-testid="product-container"] .aspect-square:not(.product-thumbnail):hover {
+  border-color: #00A2FF !important;
+  box-shadow: 0 0 16px 2px rgba(0, 162, 255, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Option buttons — styled like pagination buttons */
+
+/* Price — muted, clean */
+.game-theme--portal [data-testid="product-container"] .text-xl-semi,
+.game-theme--portal [data-testid="product-container"] .text-base-regular.text-ui-fg-muted {
+  color: var(--game-text) !important;
+  font-weight: 600;
+}
+
+/* Add to cart button — Portal blue */
+.game-theme--portal [data-testid="product-container"] [data-testid="add-product-button"] {
+  background: #00A2FF !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: none !important;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.game-theme--portal [data-testid="product-container"] [data-testid="add-product-button"]:hover:not(:disabled) {
+  background: #FF8C00 !important;
+}
+
+.game-theme--portal [data-testid="product-container"] [data-testid="add-product-button"]:disabled {
+  background: #E0E0E0 !important;
+  color: #A0A0A0 !important;
+}
+
+/* Stock display */
+.game-theme--portal [data-testid="product-container"] .text-ui-fg-interactive {
+  color: #00A2FF !important;
+}
+
+/* Divider */
+.game-theme--portal [data-testid="product-container"] .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Product tabs — clean labels */
+.game-theme--portal [data-testid="product-container"] h3,
+.game-theme--portal [data-testid="product-container"] .font-semibold {
+  color: var(--game-text) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.game-theme--portal [data-testid="product-container"] .text-small-regular {
+  color: var(--game-text-secondary) !important;
+}
+
+/* Related products */
+.game-theme--portal .product-page-constraint .text-xl {
+  color: var(--game-text) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================
+   HALF-LIFE / SOURCE ENGINE MENU THEME
+   ============================================================ */
+
+/* Scanline overlay — applied to the whole theme */
+.game-theme--halflife::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+.game-theme--halflife {
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.game-theme--halflife .content-container {
+  color: var(--game-text);
+}
+
+.game-theme--halflife [data-testid="category-container"] {
+  background: transparent;
+  padding: 1.5rem;
+}
+
+/* Category products panel — dark amber panel with gold borders */
+.game-theme--halflife [data-testid="category-products"] {
+  background: var(--game-content-bg);
+  border: 2px solid var(--game-border);
+  padding: 1.5rem;
+  box-shadow:
+    0 0 20px rgba(180, 152, 48, 0.1),
+    0 4px 30px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(212, 168, 64, 0.15);
+  row-gap: 0.5rem !important;
+  position: relative;
+}
+
+/* Inner glow on the panel top edge */
+.game-theme--halflife [data-testid="category-products"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 64, 0.4), transparent);
+}
+
+/* Sidebar styling */
+.game-theme--halflife .flex.small\:flex-col {
+  color: var(--game-text);
+}
+
+.game-theme--halflife .flex.small\:flex-col a {
+  color: var(--game-text-secondary) !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.game-theme--halflife .flex.small\:flex-col a:hover,
+.game-theme--halflife .flex.small\:flex-col a.text-brand-orange-500 {
+  color: var(--game-accent) !important;
+  text-shadow: 0 0 8px rgba(212, 168, 64, 0.4);
+}
+
+/* Radio/filter labels */
+.game-theme--halflife label[data-testid="radio-label"] {
+  color: var(--game-text-secondary) !important;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.06em;
+}
+
+.game-theme--halflife label[data-testid="radio-label"][data-active="true"] {
+  color: var(--game-accent) !important;
+  text-shadow: 0 0 6px rgba(212, 168, 64, 0.3);
+}
+
+/* Product cards */
+.game-theme--halflife [data-testid="product-wrapper"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Card border — gold border, amber glow on hover */
+.game-theme--halflife [data-testid="product-wrapper"] > div:first-child {
+  border: 2px solid var(--game-card-border) !important;
+  border-radius: 2px !important;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+  background: var(--game-card-bg);
+}
+
+.game-theme--halflife [data-testid="product-wrapper"]:hover > div:first-child {
+  border-color: var(--game-accent) !important;
+  box-shadow: 0 0 16px 2px rgba(212, 168, 64, 0.25),
+              0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Product title — gold, condensed, uppercase */
+.game-theme--halflife [data-testid="product-title"],
+.game-theme--halflife .text-ui-fg-subtle[data-testid="product-title"] {
+  color: var(--game-text) !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 1.2em !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center !important;
+  white-space: normal !important;
+  text-overflow: unset !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  max-width: 18ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  word-break: keep-all !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+  padding-left: 0.15em !important;
+  padding-right: 0.15em !important;
+}
+
+/* Center text container */
+.game-theme--halflife [data-testid="product-wrapper"] .flex.flex-col.mt-4 {
+  align-items: center;
+  text-align: center;
+}
+
+/* Title hover — bright gold with glow */
+.game-theme--halflife [data-testid="product-wrapper"]:hover [data-testid="product-title"],
+.game-theme--halflife [data-testid="product-wrapper"]:hover .text-ui-fg-subtle[data-testid="product-title"] {
+  color: #E8C850 !important;
+  text-shadow: 0 0 8px rgba(232, 200, 80, 0.3);
+}
+
+/* Product price */
+.game-theme--halflife [data-testid="product-price"],
+.game-theme--halflife .text-ui-fg-muted {
+  color: var(--game-price) !important;
+  font-weight: 600 !important;
+}
+
+/* Breadcrumb — gold, uppercase */
+.game-theme--halflife [data-testid="category-breadcrumb"] {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.1em;
+}
+
+.game-theme--halflife [data-testid="breadcrumb-parent"] {
+  color: var(--game-text-secondary) !important;
+}
+
+.game-theme--halflife [data-testid="breadcrumb-parent"] a {
+  color: var(--game-text-secondary) !important;
+  text-decoration: none;
+}
+
+.game-theme--halflife [data-testid="breadcrumb-parent"] a:hover {
+  color: var(--game-accent) !important;
+  text-shadow: 0 0 8px rgba(212, 168, 64, 0.4);
+}
+
+/* Category page title — bright gold */
+.game-theme--halflife [data-testid="category-page-title"] {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  color: #E8C850 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 2.5rem !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 12px rgba(232, 200, 80, 0.3);
+}
+
+/* Subcategory links */
+.game-theme--halflife .border-ui-border-base {
+  border-color: var(--game-border) !important;
+}
+
+/* Pagination — amber buttons, gold active */
+.game-theme--halflife [data-testid="page-button"] {
+  background: rgba(40, 30, 12, 0.9) !important;
+  color: var(--game-text) !important;
+  border: 1px solid var(--game-border) !important;
+  border-radius: 2px;
+  padding: 8px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.game-theme--halflife [data-testid="page-button"]:hover {
+  background: rgba(50, 38, 15, 0.95) !important;
+  border-color: var(--game-accent) !important;
+  text-shadow: 0 0 6px rgba(212, 168, 64, 0.3);
+}
+
+.game-theme--halflife [data-testid="page-button"][data-current="true"] {
+  background: rgba(212, 168, 64, 0.2) !important;
+  color: #E8C850 !important;
+  border-color: var(--game-accent) !important;
+  text-shadow: 0 0 8px rgba(232, 200, 80, 0.4);
+  cursor: default;
+}
+
+/* Per-page selector */
+.game-theme--halflife .per-page-dropdown {
+  background: rgba(40, 30, 12, 0.9) !important;
+  color: var(--game-text) !important;
+  border: 1px solid var(--game-border) !important;
+  border-radius: 2px;
+  padding: 8px 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  appearance: auto;
+}
+
+.game-theme--halflife .per-page-dropdown:hover {
+  background: rgba(50, 38, 15, 0.95) !important;
+}
+
+.game-theme--halflife [data-testid="per-page-label"] {
+  color: var(--game-text) !important;
+  font-size: 0.95em;
+}
+
+/* Keep header normal */
+.game-theme--halflife header {
+  background: rgba(16, 16, 24, 0.95) !important;
+}
+
+.game-theme--halflife footer {
+  background: rgb(16, 16, 24) !important;
+  position: relative;
+  z-index: 20;
+}
+
+.game-theme--halflife .text-2xl-semi {
+  color: var(--game-text);
+}
+
+.game-theme--halflife .text-ui-fg-subtle {
+  color: var(--game-text-secondary) !important;
+}
+
+/* --- Half-Life sidebar — Source menu panel --- */
+.game-sidebar[data-theme="halflife"] {
+  background: rgba(30, 22, 8, 0.92);
+  border: 2px solid #B89830;
+  border-radius: 2px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow:
+    0 0 15px rgba(180, 152, 48, 0.1),
+    inset 0 1px 0 rgba(212, 168, 64, 0.15);
+  position: relative;
+}
+
+/* Sidebar top gold line */
+.game-sidebar[data-theme="halflife"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 64, 0.5), transparent);
+}
+
+.game-sidebar[data-theme="halflife"] a,
+.game-sidebar[data-theme="halflife"] span,
+.game-sidebar[data-theme="halflife"] h3 {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.game-sidebar[data-theme="halflife"] a {
+  color: #D4AA40 !important;
+  display: block !important;
+  padding: 10px 16px !important;
+  transition: background 0.15s ease, text-shadow 0.15s ease;
+}
+
+.game-sidebar[data-theme="halflife"] a:hover {
+  color: #E8C850 !important;
+  background: rgba(212, 168, 64, 0.1) !important;
+  text-shadow: 0 0 10px rgba(232, 200, 80, 0.4);
+}
+
+.game-sidebar[data-theme="halflife"] a.text-brand-orange-500 {
+  color: #E8C850 !important;
+  background: rgba(212, 168, 64, 0.12) !important;
+  text-shadow: 0 0 10px rgba(232, 200, 80, 0.4);
+}
+
+.game-sidebar[data-theme="halflife"] h3,
+.game-sidebar[data-theme="halflife"] span {
+  color: #9A8030 !important;
+  padding: 8px 16px;
+}
+
+.game-sidebar[data-theme="halflife"] label[data-testid="radio-label"] {
+  color: #9A8030 !important;
+}
+
+.game-sidebar[data-theme="halflife"] label[data-testid="radio-label"][data-active="true"] {
+  color: #E8C850 !important;
+  text-shadow: 0 0 6px rgba(232, 200, 80, 0.3);
+}
+
+.game-sidebar[data-theme="halflife"] .border-ui-border-base {
+  border-color: rgba(184, 152, 48, 0.3) !important;
+}
+
+.game-sidebar[data-theme="halflife"] .flex.flex-col.gap-3 {
+  gap: 0 !important;
+}
+
+/* Sort section padding */
+.game-sidebar[data-theme="halflife"] .flex.gap-x-3.flex-col {
+  padding: 0 16px;
+}
+
+/* ===== HALF-LIFE PRODUCT PAGE ===== */
+
+/* Product container — dark amber panel with gold border */
+.game-theme--halflife [data-testid="product-container"] {
+  background: rgba(30, 22, 8, 0.88);
+  border: 2px solid #B89830;
+  border-radius: 2px;
+  padding: 2rem;
+  box-shadow:
+    0 0 20px rgba(180, 152, 48, 0.1),
+    0 4px 30px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(212, 168, 64, 0.15);
+  max-width: 1100px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+/* Top gold line accent */
+.game-theme--halflife [data-testid="product-container"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 64, 0.4), transparent);
+}
+
+/* Product title — gold, condensed */
+.game-theme--halflife [data-testid="product-container"] [data-testid="product-title"] {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  color: #E8C850 !important;
+  font-size: 2.2rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 12px rgba(232, 200, 80, 0.25);
+}
+
+/* Product description */
+.game-theme--halflife [data-testid="product-container"] [data-testid="product-description"] {
+  color: #9A8030 !important;
+}
+
+/* Collection link */
+.game-theme--halflife [data-testid="product-container"] .text-ui-fg-muted {
+  color: #9A8030 !important;
+}
+
+/* Image container — gold border, amber glow */
+/* Main product image only — not thumbnails */
+.game-theme--halflife [data-testid="product-container"] .aspect-square:not(.product-thumbnail) {
+  border: 2px solid #8A7020 !important;
+  border-radius: 2px !important;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: rgba(20, 15, 5, 0.9);
+}
+
+.game-theme--halflife [data-testid="product-container"] .aspect-square:not(.product-thumbnail):hover {
+  border-color: #D4A840 !important;
+  box-shadow: 0 0 16px 2px rgba(212, 168, 64, 0.2) !important;
+}
+
+/* Option buttons — dark amber, gold borders */
+/* Option buttons — styled like pagination buttons */
+
+/* Price — bright gold */
+.game-theme--halflife [data-testid="product-container"] .text-xl-semi,
+.game-theme--halflife [data-testid="product-container"] .text-base-regular.text-ui-fg-muted {
+  color: #E8C850 !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+/* Add to cart button — gold, glowing */
+.game-theme--halflife [data-testid="product-container"] [data-testid="add-product-button"] {
+  background: rgba(212, 168, 64, 0.15) !important;
+  color: #E8C850 !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 1.15em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 2px solid #B89830 !important;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  text-shadow: 0 0 8px rgba(232, 200, 80, 0.3);
+}
+
+.game-theme--halflife [data-testid="product-container"] [data-testid="add-product-button"]:hover:not(:disabled) {
+  background: rgba(212, 168, 64, 0.25) !important;
+  border-color: #D4A840 !important;
+  box-shadow: 0 0 12px rgba(212, 168, 64, 0.2);
+  text-shadow: 0 0 12px rgba(232, 200, 80, 0.5);
+}
+
+.game-theme--halflife [data-testid="product-container"] [data-testid="add-product-button"]:disabled {
+  background: rgba(40, 30, 12, 0.5) !important;
+  color: #6A5A20 !important;
+  border-color: #5A4A18 !important;
+  text-shadow: none;
+}
+
+/* Stock display */
+.game-theme--halflife [data-testid="product-container"] .text-ui-fg-interactive {
+  color: #D4A840 !important;
+}
+
+/* Divider */
+.game-theme--halflife [data-testid="product-container"] .border-ui-border-base {
+  border-color: rgba(184, 152, 48, 0.3) !important;
+}
+
+/* Product tabs */
+.game-theme--halflife [data-testid="product-container"] h3,
+.game-theme--halflife [data-testid="product-container"] .font-semibold {
+  color: #D4AA40 !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.game-theme--halflife [data-testid="product-container"] .text-small-regular {
+  color: #9A8030 !important;
+}
+
+/* Related products */
+.game-theme--halflife .product-page-constraint .text-xl {
+  color: #D4AA40 !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 8px rgba(212, 168, 64, 0.2);
+}
+
+/* ============================================================
+   HERO BANNER — STORE PAGE (/store)
+   Light/dark mode toggle
+   ============================================================ */
+
+/* Dark mode: show dark bg + dark overlay, hide light versions */
+[data-mode="dark"] .hero-banner__bg--dark { display: block; }
+[data-mode="dark"] .hero-banner__bg--light { display: none; }
+[data-mode="dark"] .hero-banner__overlay--dark { display: block; }
+[data-mode="dark"] .hero-banner__overlay--light { display: none; }
+
+/* Light mode: show light bg + light overlay, hide dark versions */
+[data-mode="light"] .hero-banner__bg--dark { display: none; }
+[data-mode="light"] .hero-banner__bg--light { display: block; }
+[data-mode="light"] .hero-banner__overlay--dark { display: none; }
+[data-mode="light"] .hero-banner__overlay--light { display: block; }
+
+/* Tagline text — adapts to light/dark */
+[data-mode="dark"] .hero-banner__tagline {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[data-mode="light"] .hero-banner__tagline {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================================
+   OPTION BUTTONS — match pagination button style per theme
+   ============================================================ */
+
+/* Base: remove default border, add transition */
+.game-option-btn {
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* Default (non-themed) selected state */
+.game-option-btn--active {
+  background: var(--ui-bg-surface, #e4e4e8) !important;
+  box-shadow: inset 0 0 0 2px var(--ui-border-strong, #9ca3af);
+}
+
+/* Default (non-themed) Add to Cart — no border */
+[data-testid="add-product-button"] {
+  border: none !important;
+}
+
+/* Compact grid — scale down game font sizes */
+.game-theme--tf2 .game-option-grid--compact .game-option-btn {
+  font-size: 0.85em !important;
+}
+.game-theme--gmod .game-option-grid--compact .game-option-btn {
+  font-size: 0.95em !important;
+}
+.game-theme--portal .game-option-grid--compact .game-option-btn {
+  font-size: 0.8em !important;
+}
+.game-theme--halflife .game-option-grid--compact .game-option-btn {
+  font-size: 0.85em !important;
+}
+
+/* ===== TF2 — mirrors page-button exactly ===== */
+.game-theme--tf2 .game-option-btn {
+  background: #776b61 !important;
+  color: #f3e8d6 !important;
+  border: none !important;
+  border-radius: 6px;
+  font-family: 'TF2 Build', sans-serif !important;
+  font-size: 1.1em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.game-theme--tf2 .game-option-btn:hover:not(.game-option-btn--active) {
+  background: #887c72 !important;
+  color: #f3e8d6 !important;
+}
+
+.game-theme--tf2 .game-option-btn--active {
+  background: #CF6A42 !important;
+  color: #24201B !important;
+  box-shadow: none;
+}
+
+/* ===== GMod — mirrors page-button exactly ===== */
+.game-theme--gmod .game-option-btn {
+  background: #6B6E72 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 6px;
+  font-family: 'Coolvetica', sans-serif !important;
+  font-size: 1.25em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+.game-theme--gmod .game-option-btn:hover:not(.game-option-btn--active) {
+  background: #7D8084 !important;
+  color: #FFFFFF !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.game-theme--gmod .game-option-btn:focus,
+.game-theme--gmod .game-option-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.game-theme--gmod .game-option-btn--active {
+  background: #48A4FF !important;
+  color: #FFFFFF !important;
+  box-shadow: none;
+}
+
+/* ===== Portal — mirrors page-button exactly ===== */
+.game-theme--portal .game-option-btn {
+  background: #E8E8E8 !important;
+  color: var(--game-text) !important;
+  border: 1px solid var(--game-border) !important;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.game-theme--portal .game-option-btn:hover:not(.game-option-btn--active) {
+  background: #D8D8D8 !important;
+  border-color: var(--game-accent) !important;
+}
+
+.game-theme--portal .game-option-btn--active {
+  background: var(--game-accent) !important;
+  color: #FFFFFF !important;
+  border-color: var(--game-accent) !important;
+  box-shadow: none;
+}
+
+/* ===== Half-Life — mirrors page-button exactly ===== */
+.game-theme--halflife .game-option-btn {
+  background: rgba(40, 30, 12, 0.9) !important;
+  color: var(--game-text) !important;
+  border: 1px solid var(--game-border) !important;
+  border-radius: 2px;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 1.05em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.game-theme--halflife .game-option-btn:hover:not(.game-option-btn--active) {
+  background: rgba(50, 38, 15, 0.95) !important;
+  border-color: var(--game-accent) !important;
+  text-shadow: 0 0 6px rgba(212, 168, 64, 0.3);
+}
+
+.game-theme--halflife .game-option-btn--active {
+  background: rgba(212, 168, 64, 0.2) !important;
+  color: #E8C850 !important;
+  border-color: var(--game-accent) !important;
+  text-shadow: 0 0 8px rgba(232, 200, 80, 0.4);
+  box-shadow: none;
+}
+
+/* ============================================================
+   PRODUCT THUMBNAILS — thin border, themed highlight
+   ============================================================ */
+
+/* Base thumbnail — thin subtle border */
+.product-thumbnail {
+  border: 2px solid transparent;
+}
+
+.product-thumbnail--inactive {
+  border-color: var(--game-card-border, var(--ui-border-base, #2a2a38));
+}
+
+.product-thumbnail--inactive:hover {
+  border-color: var(--game-accent, var(--ui-fg-subtle, #696978));
+}
+
+/* Active thumbnail — accent border matching catalog card hover */
+.product-thumbnail--active {
+  border-color: var(--game-accent, var(--brand-orange-500, #CF6A42));
+}
+
+/* ===== TF2 thumbnails ===== */
+.game-theme--tf2 .product-thumbnail--inactive {
+  border: 2px solid var(--game-card-border);
+  border-radius: 8px;
+}
+
+.game-theme--tf2 .product-thumbnail--inactive:hover {
+  border-color: #CF6A42;
+}
+
+.game-theme--tf2 .product-thumbnail--active {
+  border: 3px solid #CF6A42;
+  border-radius: 8px;
+}
+
+/* ===== GMod thumbnails ===== */
+.game-theme--gmod .product-thumbnail--inactive {
+  border: 2px solid rgba(230, 234, 230, 0.5);
+  border-radius: 8px;
+}
+
+.game-theme--gmod .product-thumbnail--inactive:hover {
+  border-color: #48A4FF;
+  box-shadow: 0 0 8px 2px rgba(72, 164, 255, 0.25);
+}
+
+.game-theme--gmod .product-thumbnail--active {
+  border: 2px solid #48A4FF;
+  border-radius: 8px;
+  box-shadow: 0 0 10px 3px rgba(72, 164, 255, 0.35);
+}
+
+/* ===== Portal thumbnails ===== */
+.game-theme--portal .product-thumbnail--inactive {
+  border: 1px solid var(--game-card-border);
+  border-radius: 8px;
+}
+
+.game-theme--portal .product-thumbnail--inactive:hover {
+  border-color: #00A2FF;
+  box-shadow: 0 0 10px 2px rgba(0, 162, 255, 0.2);
+}
+
+.game-theme--portal .product-thumbnail--active {
+  border: 2px solid #00A2FF;
+  border-radius: 8px;
+  box-shadow: 0 0 12px 2px rgba(0, 162, 255, 0.3);
+}
+
+/* ===== Half-Life thumbnails ===== */
+.game-theme--halflife .product-thumbnail--inactive {
+  border: 1px solid var(--game-card-border);
+  border-radius: 2px;
+}
+
+.game-theme--halflife .product-thumbnail--inactive:hover {
+  border-color: #D4A840;
+  box-shadow: 0 0 10px 2px rgba(212, 168, 64, 0.2);
+}
+
+.game-theme--halflife .product-thumbnail--active {
+  border: 2px solid #D4A840;
+  border-radius: 2px;
+  box-shadow: 0 0 12px 2px rgba(212, 168, 64, 0.25);
+}
+
+/* ============================================================
+   ADD TO CART — force no border everywhere
+   ============================================================ */
+.game-theme [data-testid="add-product-button"],
+.game-theme [data-testid="add-product-button"]:hover,
+.game-theme [data-testid="add-product-button"]:focus,
+.game-theme [data-testid="add-product-button"]:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none;
+}
+
+/* ============================================================
+   HOMEPAGE GAME CATEGORY CARDS
+   ============================================================ */
+
+/* Game category card — base styles */
+.game-category-card {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.game-category-card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* TF2 title styling */
+.tf2-title {
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Light mode adjustments for game cards */
+[data-mode="light"] .game-category-card {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+[data-mode="light"] .game-category-card:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}

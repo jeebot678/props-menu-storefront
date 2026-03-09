@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="portalGrid" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <!-- Base panel -->
+      <rect x="0" y="0" width="200" height="200" fill="#F8F8F8"/>
+      
+      <!-- Vertical lines -->
+      <line x1="0" y1="0" x2="0" y2="200" stroke="#E0E0E0" stroke-width="1.5"/>
+      <line x1="66.67" y1="0" x2="66.67" y2="200" stroke="#E8E8E8" stroke-width="1"/>
+      <line x1="133.33" y1="0" x2="133.33" y2="200" stroke="#E8E8E8" stroke-width="1"/>
+      <line x1="200" y1="0" x2="200" y2="200" stroke="#E0E0E0" stroke-width="1.5"/>
+      
+      <!-- Horizontal lines -->
+      <line x1="0" y1="0" x2="200" y2="0" stroke="#E0E0E0" stroke-width="1.5"/>
+      <line x1="0" y1="66.67" x2="200" y2="66.67" stroke="#E8E8E8" stroke-width="1"/>
+      <line x1="0" y1="133.33" x2="200" y2="133.33" stroke="#E8E8E8" stroke-width="1"/>
+      <line x1="0" y1="200" x2="200" y2="200" stroke="#E0E0E0" stroke-width="1.5"/>
+      
+      <!-- Subtle inner panel bevels -->
+      <rect x="2" y="2" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      <rect x="68.67" y="2" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      <rect x="135.33" y="2" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      
+      <rect x="2" y="68.67" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      <rect x="68.67" y="68.67" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      <rect x="135.33" y="68.67" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      
+      <rect x="2" y="135.33" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      <rect x="68.67" y="135.33" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+      <rect x="135.33" y="135.33" width="62.67" height="62.67" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  
+  <rect x="0" y="0" width="800" height="800" fill="url(#portalGrid)"/>
+</svg>
