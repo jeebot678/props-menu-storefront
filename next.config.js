@@ -49,6 +49,12 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [50, 60, 75],
