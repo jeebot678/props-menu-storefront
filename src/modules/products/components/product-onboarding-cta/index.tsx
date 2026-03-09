@@ -3,6 +3,7 @@ import { cookies as nextCookies } from "next/headers"
 
 async function ProductOnboardingCta() {
   const cookies = await nextCookies()
+  const adminUrl = process.env.NEXT_PUBLIC_MEDUSA_ADMIN_URL
 
   const isOnboarding = cookies.get("_medusa_onboarding")?.value === "true"
 
@@ -19,9 +20,16 @@ async function ProductOnboardingCta() {
         <Text className="text-ui-fg-subtle text-small-regular">
           You can now continue setting up your store in the admin.
         </Text>
-        <a href="http://localhost:7001/a/orders?onboarding_step=create_order_nextjs">
-          <Button className="w-full">Continue setup in admin</Button>
-        </a>
+        {adminUrl && (
+          <a
+            href={`${adminUrl.replace(
+              /\/$/,
+              ""
+            )}/a/orders?onboarding_step=create_order_nextjs`}
+          >
+            <Button className="w-full">Continue setup in admin</Button>
+          </a>
+        )}
       </div>
     </Container>
   )

@@ -9,6 +9,7 @@ import GameSidebar from "@modules/categories/components/game-sidebar"
 import { getGameThemeForProduct } from "@lib/util/game-themes"
 import GameThemeWrapper from "@modules/categories/components/game-theme-wrapper"
 import { HttpTypes } from "@medusajs/types"
+import { getDefaultRegion } from "@lib/util/env"
 
 type Props = {
   params: Promise<{ handle: string }>
@@ -16,9 +17,11 @@ type Props = {
 }
 
 export async function generateStaticParams() {
+  const countryCode = getDefaultRegion()
+
   try {
     const { response } = await listProducts({
-      countryCode: "us",
+      countryCode,
       queryParams: { limit: 100, fields: "handle" },
     })
 
@@ -61,14 +64,15 @@ function getImagesForVariant(
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const { handle } = params
-  const region = await getRegion("us")
+  const countryCode = getDefaultRegion()
+  const region = await getRegion(countryCode)
 
   if (!region) {
     notFound()
   }
 
   const product = await listProducts({
-    countryCode: "us",
+    countryCode,
     queryParams: { handle },
   }).then(({ response }) => response.products[0])
 
@@ -92,7 +96,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function ProductPage(props: Props) {
   const params = await props.params
-  const region = await getRegion("us")
+  const countryCode = getDefaultRegion()
+  const region = await getRegion(countryCode)
   const searchParams = await props.searchParams
 
   const selectedVariantId = searchParams.v_id
@@ -102,7 +107,7 @@ export default async function ProductPage(props: Props) {
   }
 
   const pricedProduct = await listProducts({
-    countryCode: "us",
+    countryCode,
     queryParams: { handle: params.handle },
   }).then(({ response }) => response.products[0])
 
@@ -144,7 +149,7 @@ export default async function ProductPage(props: Props) {
           <ProductTemplate
             product={pricedProduct}
             region={region}
-            countryCode="us"
+            countryCode={countryCode}
             images={images}
           />
         </div>

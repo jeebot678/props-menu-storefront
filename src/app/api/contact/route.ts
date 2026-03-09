@@ -9,6 +9,29 @@ interface Attachment {
 
 export async function POST(request: NextRequest) {
   try {
+    const smtpHost = process.env.SMTP_HOST
+    const smtpPort = process.env.SMTP_PORT
+    const smtpSecure = process.env.SMTP_SECURE
+    const smtpUser = process.env.SMTP_USER
+    const smtpPass = process.env.SMTP_PASS
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
+    const contactRecipient = process.env.CONTACT_FORM_TO_EMAIL || smtpUser
+
+    if (
+      !smtpHost ||
+      !smtpPort ||
+      !smtpSecure ||
+      !smtpUser ||
+      !smtpPass ||
+      !recaptchaSecret ||
+      !contactRecipient
+    ) {
+      return NextResponse.json(
+        { error: 'Contact form is not configured on this environment.' },
+        { status: 500 }
+      )
+    }
+
     const body = await request.json()
     const { email, subject, message, captchaToken, attachments = [] } = body
 
@@ -33,7 +56,7 @@ export async function POST(request: NextRequest) {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captchaToken}`,
+        body: `secret=${recaptchaSecret}&response=${captchaToken}`,
       }
     )
 
@@ -61,19 +84,19 @@ export async function POST(request: NextRequest) {
 
     // Create transporter
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true',
+      host: smtpHost,
+      port: parseInt(smtpPort, 10),
+      secure: smtpSecure === 'true',
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: smtpUser,
+        pass: smtpPass,
       },
     })
 
     // Send email
     await transporter.sendMail({
-      from: `"Props Menu Contact Form" <${process.env.SMTP_USER}>`,
-      to: 'spam71945@gmail.com',
+      from: `"Props Menu Contact Form" <${smtpUser}>`,
+      to: contactRecipient,
       replyTo: email,
       subject: `[Contact Form] ${subject}`,
       text: `From: ${email}\n\nSubject: ${subject}\n\n${message}${emailAttachments.length > 0 ? `\n\n[${emailAttachments.length} attachment(s)]` : ''}`,

@@ -1,9 +1,12 @@
 import { HttpTypes } from "@medusajs/types"
+import { getBaseURL } from "@lib/util/env"
 
 export function generateProductSchema(
   product: HttpTypes.StoreProduct,
   price?: { amount: number; currency_code: string }
 ) {
+  const baseUrl = getBaseURL()
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -20,7 +23,7 @@ export function generateProductSchema(
           price: (price.amount / 100).toFixed(2),
           priceCurrency: price.currency_code.toUpperCase(),
           availability: "https://schema.org/InStock",
-          url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/products/${product.handle}`,
+          url: `${baseUrl}/products/${product.handle}`,
         }
       : undefined,
   }
@@ -29,12 +32,14 @@ export function generateProductSchema(
 }
 
 export function generateOrganizationSchema() {
+  const baseUrl = getBaseURL()
+
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Props Menu",
-    url: process.env.NEXT_PUBLIC_BASE_URL || "",
-    logo: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/logo.png`,
+    url: baseUrl,
+    logo: `${baseUrl}/logo.png`,
     description:
       "Premium film and TV replica props for fans and collectors.",
     sameAs: [

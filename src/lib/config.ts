@@ -1,11 +1,13 @@
 import { getLocaleHeader } from "@lib/util/get-locale-header"
 import Medusa, { FetchArgs, FetchInput } from "@medusajs/js-sdk"
 
-// Defaults to standard port for Medusa server
-let MEDUSA_BACKEND_URL = "http://localhost:9000"
+const MEDUSA_BACKEND_URL =
+  process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || process.env.MEDUSA_BACKEND_URL
 
-if (process.env.MEDUSA_BACKEND_URL) {
-  MEDUSA_BACKEND_URL = process.env.MEDUSA_BACKEND_URL
+if (!MEDUSA_BACKEND_URL) {
+  throw new Error(
+    "Missing NEXT_PUBLIC_MEDUSA_BACKEND_URL (or MEDUSA_BACKEND_URL) environment variable."
+  )
 }
 
 // Polyfill localStorage globally before SDK initialization

@@ -2,9 +2,11 @@ import { MetadataRoute } from 'next'
 import { listProducts } from '@lib/data/products'
 import { listCollections } from '@lib/data/collections'
 import { listCategories } from '@lib/data/categories'
+import { getBaseURL, getDefaultRegion } from '@lib/util/env'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://propsmenu.com'
+  const baseUrl = getBaseURL()
+  const countryCode = getDefaultRegion()
 
   try {
     let urls: MetadataRoute.Sitemap = [
@@ -31,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
       // Add product pages
       const { response: productsResponse } = await listProducts({
-        countryCode: 'us',
+        countryCode,
         queryParams: { 
           limit: 100, 
           fields: 'handle,updated_at' 

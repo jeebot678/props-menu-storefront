@@ -1,6 +1,6 @@
 {
-  "name": "medusa-next",
-  "version": "1.0.3",
+  "name": "props-menu-storefront",
+  "version": "1.0.0",
   "private": true,
   "author": "Kasper Fabricius Kristensen <kasper@medusajs.com> & Victor Gerbrands <victor@medusajs.com> (https://www.medusajs.com)",
   "description": "Next.js Starter to be used with Medusa V2",
@@ -65,5 +65,5 @@
     "react": "19.0.4",
     "react-dom": "19.0.4"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "npm@10"
 }
